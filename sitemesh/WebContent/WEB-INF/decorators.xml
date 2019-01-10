@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/WEB-INF/decorators">
+    <!-- Any urls that are excluded will never be decorated by Sitemesh -->
+    <!-- exclude中可以定义那些页面不使用模板 -->
+    <excludes>
+        <pattern>/exclude.jsp</pattern>
+        <pattern>/exclude/*</pattern>
+        <pattern>/02.jsp</pattern>
+    </excludes>
+
+    <decorator name="basic" page="basic.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    
+    <decorator name="main" page="main.jsp">
+        <pattern>/02.jsp</pattern>
+        <pattern>/01.jsp</pattern>
+    </decorator>
+    
+    <decorator name="panel" page="panel.jsp"/>
+</decorators>
