@@ -4,7 +4,9 @@ import java.util.List;
 
 public class User {
 	private int id;
+	@ValidateForm(type = ValidateType.NotNull, errorMsg = "用户名不能为空！")
 	private String username;
+	@ValidateForm(type = ValidateType.Length, value = "6", errorMsg = "用户密码长度不能小于6！")
 	private String password;
 	private String nickname;
 	/**
