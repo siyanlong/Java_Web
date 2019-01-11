@@ -13,6 +13,8 @@ import siyl.cit.shopping.model.ValidateForm;
 import siyl.cit.shopping.model.ValidateType;
 
 public class RequestUtil {
+	public final static String PATH = "E:\\Project\\Java_Web\\trunk\\shopping\\WebContent";
+
 	public static boolean validate(Class clz, HttpServletRequest req) {
 		Field[] fs = clz.getDeclaredFields();
 		boolean isValidate = true;
