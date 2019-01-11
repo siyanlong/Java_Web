@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import siyl.cit.shopping.model.SystemContext;
+import siyl.cit.shopping.util.RequestUtil;
 
 public class SystemContextFilter implements Filter {
 	int pageSize;
@@ -25,12 +26,17 @@ public class SystemContextFilter implements Filter {
 		try {
 			int pageOffset = 0;
 			int pageSize = 15;
+			String sort = req.getParameter("sort");
+			String order = req.getParameter("order");
 			try {
 				pageOffset = Integer.parseInt(req.getParameter("pager.offset"));
 			} catch (NumberFormatException e) {
 			}
+			SystemContext.setOrder(order);
+			SystemContext.setSort(sort);
 			SystemContext.setPageOffset(pageOffset);
 			SystemContext.setPageSize(pageSize);
+			SystemContext.setRealpath(RequestUtil.PATH);
 			chain.doFilter(req, resp);
 		} finally {
 			SystemContext.removePageOffset();
@@ -45,5 +51,4 @@ public class SystemContextFilter implements Filter {
 			pageSize = 15;
 		}
 	}
-
 }
