@@ -21,9 +21,10 @@
 			<td>
 				<c:if test="${user.type eq 0 }">普通用户</c:if>
 				<c:if test="${user.type eq 1 }">管理员</c:if>
+				<a href="user.do?method=changeType&id=${user.id }">变更</a>
 			</td>
 			<td>
-				<a href="">修改</a><a href="">删除</a>
+				<a href="user.do?method=updateInput&id=${user.id }">修改</a><a href="user.do?method=delete&id=${user.id }">删除</a>
 			</td>
 		</tr>
 	</c:forEach>

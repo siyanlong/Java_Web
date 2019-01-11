@@ -4,45 +4,54 @@
     <filter-name>sitemesh</filter-name>
     <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
   </filter>
-
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-	<filter>
-		<filter-name>CharFilter</filter-name>
-		<filter-class>siyl.cit.shopping.filter.CharFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>CharFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>SystemContextFilter</filter-name>
-		<filter-class>siyl.cit.shopping.filter.SystemContextFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>SystemContextFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<servlet>
-	    <servlet-name>UserServlet</servlet-name>
-    	<servlet-class>siyl.cit.shopping.servlet.UserServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-	    <servlet-name>UserServlet</servlet-name>
-	    <url-pattern>/user.do</url-pattern>
-  	</servlet-mapping>
-  	<servlet>
-       <servlet-name>BaseServlet</servlet-name>
-    	<servlet-class>siyl.cit.shopping.servlet.BaseServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-    	<servlet-name>BaseServlet</servlet-name>
-    	<url-pattern>/BaseServlet</url-pattern>
-  	</servlet-mapping>
+  <filter>
+    <filter-name>CharFilter</filter-name>
+    <filter-class>siyl.cit.shopping.filter.CharFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>SystemContextFilter</filter-name>
+    <filter-class>siyl.cit.shopping.filter.SystemContextFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SystemContextFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>siyl.cit.shopping.servlet.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/user.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>BaseServlet</servlet-name>
+    <servlet-class>siyl.cit.shopping.servlet.BaseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BaseServlet</servlet-name>
+    <url-pattern>/BaseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductServlet</display-name>
+    <servlet-name>ProductServlet</servlet-name>
+    <servlet-class>siyl.cit.shopping.servlet.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductServlet</servlet-name>
+    <url-pattern>/ProductServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

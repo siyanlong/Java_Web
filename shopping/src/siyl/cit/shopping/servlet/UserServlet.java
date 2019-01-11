@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import siyl.cit.shopping.dao.IUserDao;
+import siyl.cit.shopping.model.Auth;
 import siyl.cit.shopping.model.Pager;
 import siyl.cit.shopping.model.ShopDi;
+import siyl.cit.shopping.model.ShopException;
 import siyl.cit.shopping.model.User;
 import siyl.cit.shopping.util.RequestUtil;
 
@@ -29,35 +31,118 @@ public class UserServlet extends BaseServlet {
 		this.userDao = userDao;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Pager<User> users = userDao.find("");
 		request.setAttribute("users", users);
 
-		return "/user/list.jsp";
+		return "user/list.jsp";
 	}
 
+	@Auth("any")
 	public String addInput(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		return "/user/addInput.jsp";
+		return "user/addInput.jsp";
 	}
 
-	public String register(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		return "/user/register.jsp";
-	}
-
+	@Auth("any")
 	public String add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isValidate = RequestUtil.validate(User.class, request);
 		if (!isValidate) {
-			return "/user/addInput.jsp";
+			return "user/addInput.jsp";
 		}
 		User user = (User) RequestUtil.setParam(User.class, request);
 		try {
 			userDao.add(user);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ShopException e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			return "inc/error.jsp";
 		}
-		return redirectPath + "user.do?method=list";
+		return redirPath("user.do?method=list");
+	}
+
+	public String delete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		try {
+			userDao.delete(id);
+		} catch (ShopException e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			return "inc/error.jsp";
+		}
+		return redirPath("user.do?method=list");
+	}
+
+	public String updateInput(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		try {
+			User user = userDao.load(id);
+			request.setAttribute("user", user);
+		} catch (ShopException e) {
+			request.setAttribute("e", e);
+			return "inc/error.jsp";
+		}
+		return "user/updateInput.jsp";
+	}
+
+	public String update(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			User tu = (User) RequestUtil.setParam(User.class, request);
+			User user = userDao.load(id);
+			user.setNickname(tu.getNickname());
+			boolean isValidate = RequestUtil.validate(User.class, request);
+			if (!isValidate) {
+				request.setAttribute("user", user);
+				return "user/updateInput.jsp";
+			}
+
+			user.setPassword(tu.getPassword());
+			user.setNickname(tu.getNickname());
+			userDao.update(user);
+		} catch (ShopException e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			return "inc/error.jsp";
+		}
+		return redirPath("user.do?method=list");
+	}
+
+	public String changeType(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			User user = userDao.load(id);
+			if (user.getType() == 0) {
+				user.setType(1);
+			} else {
+				user.setType(0);
+			}
+
+			userDao.update(user);
+		} catch (ShopException e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			return "inc/error.jsp";
+		}
+		return redirPath("user.do?method=list");
+	}
+
+	@Auth("any")
+	public String loginInput(HttpServletRequest req, HttpServletResponse resp) {
+		return "user/loginInput.jsp";
+	}
+
+	@Auth("any")
+	public String login(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			String username = req.getParameter("username");
+			String password = req.getParameter("password");
+			User u = userDao.login(username, password);
+			req.getSession().setAttribute("loginUser", u);
+		} catch (ShopException e) {
+			req.setAttribute("errorMsg", e.getMessage());
+			return "inc/error.jsp";
+		}
+		return redirPath("product.do?method=list");
 	}
 }

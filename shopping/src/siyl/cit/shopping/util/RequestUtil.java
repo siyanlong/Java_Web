@@ -67,7 +67,7 @@ public class RequestUtil {
 
 	private static boolean validateNotNull(String name, HttpServletRequest req) {
 		if (!req.getParameterMap().containsKey(name)) {
-			// 表示表单中并没有要验证的 值
+			// 表示表单中并没有要验证的值
 			return true;
 		}
 		String v = req.getParameter(name);

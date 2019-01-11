@@ -17,8 +17,9 @@
 		delete from t_user where id=#{id}
 	</delete>
 	
+	<!-- 当数据库中的字段信息和对象的属性不一致时需要通过resultMap来映射 -->
 	<resultMap type="User" id="userMap" autoMapping="true">
-		<id column="user_id" property="id"/>
+		<id column="id" property="id"/>
 		<collection property="addresses" ofType="Address">
 			<id column="a_id" property="id"/>
 			<result column="phone" property="phone"/>
