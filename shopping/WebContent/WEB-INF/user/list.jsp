@@ -17,7 +17,10 @@
 	</tr>
 	<c:forEach var="user" items="${users.datas }" varStatus="vs">
 		<tr <c:if test="${vs.index % 2 == 0 }">style="background:#ff0;color:#45e"</c:if>>
-			<td>${user.id }</td><td>${user.nickname }</td><td>${user.password }</td><td>${user.nickname }</td>
+			<td>${user.id }</td>
+			<td>${user.username }</td>
+			<td>${user.password }</td>
+			<td><a href="user.do?method=show&id=${user.id }">${user.nickname }</a></td>
 			<td>
 				<c:if test="${user.type eq 0 }">普通用户</c:if>
 				<c:if test="${user.type eq 1 }">管理员</c:if>

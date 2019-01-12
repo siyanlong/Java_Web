@@ -145,4 +145,38 @@ public class UserServlet extends BaseServlet {
 		}
 		return redirPath("product.do?method=list");
 	}
+
+	@Auth("any")
+	public String logout(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		return redirPath("product.do?method=list");
+	}
+
+	@Auth
+	public String updateSelfInput(HttpServletRequest req, HttpServletResponse resp) {
+		req.setAttribute("user", (User) req.getSession().getAttribute("loginUser"));
+		return "user/updateSelfInput.jsp";
+	}
+
+	@Auth
+	public String updateSelf(HttpServletRequest req, HttpServletResponse resp) {
+		User tu = (User) RequestUtil.setParam(User.class, req);
+		boolean isValidate = RequestUtil.validate(User.class, req);
+		User user = (User) req.getSession().getAttribute("loginUser");
+		user.setPassword(tu.getPassword());
+		user.setNickname(tu.getNickname());
+		if (!isValidate) {
+			req.setAttribute("user", user);
+			return "user/updateSelfInput.jsp";
+		}
+		userDao.update(user);
+		return redirPath("goods.do?method=list");
+	}
+
+	@Auth
+	public String show(HttpServletRequest req, HttpServletResponse resp) {
+		User user = userDao.load(Integer.parseInt(req.getParameter("id")));
+		req.setAttribute("user", user);
+		return "user/show.jsp";
+	}
 }

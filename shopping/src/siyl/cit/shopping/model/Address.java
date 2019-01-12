@@ -2,7 +2,9 @@ package siyl.cit.shopping.model;
 
 public class Address {
 	private int id;
+	@ValidateForm(type = ValidateType.NotNull, errorMsg = "地址名称不能为空！")
 	private String name;
+	@ValidateForm(type = ValidateType.NotNull, errorMsg = "联系电话不能为空！")
 	private String phone;
 	private String postcode;
 	private User user;

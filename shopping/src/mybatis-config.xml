@@ -22,5 +22,7 @@
 	<mappers>
 		<mapper resource="siyl/cit/shopping/model/User.xml"/>
 		<mapper resource="siyl/cit/shopping/model/Address.xml"/>
+		<mapper resource="siyl/cit/shopping/model/Category.xml"/>
+		<mapper resource="siyl/cit/shopping/model/Product.xml"/>
 	</mappers>
 </configuration>

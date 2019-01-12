@@ -37,7 +37,15 @@ public class BaseServlet extends HttpServlet {
 			Method currMethod = this.getClass().getMethod(method, HttpServletRequest.class, HttpServletResponse.class);
 
 			// 在这里进行权限控制
-			checkAuth(request, currMethod, response);
+			int flag = checkAuth(request, currMethod, response);
+			if (flag == 1) {
+				response.sendRedirect("user.do?method=loginInput");
+				return;
+			} else if (flag == 2) {
+				request.setAttribute("errorMsg", "你没有权限访问该功能");
+				request.getRequestDispatcher("/WEB-INF/inc/error.jsp").forward(request, response);
+				return;
+			}
 
 			String path = (String) currMethod.invoke(this, request, response);
 			if (path.startsWith(redirectPath)) {
@@ -51,35 +59,39 @@ public class BaseServlet extends HttpServlet {
 		}
 	}
 
-	private void checkAuth(HttpServletRequest req, Method m, HttpServletResponse resp) {
+	/**
+	 * 返回一个int类型的值，如果是0表示可以成功访问，如果是1表示到登录页面，如果是2表示显示没有权限
+	 */
+	private int checkAuth(HttpServletRequest req, Method m, HttpServletResponse resp) {
 		User lu = (User) req.getSession().getAttribute("loginUser");
 
 		if (lu != null && lu.getType() == 1) {
 			// 如果是管理员说明所有的功能都可以访问
-			return;
+			return 0;
 		}
 
-		try {
-			// 没有Auth的Annotation说明该方法必须由超级管理员访问
-			if (!m.isAnnotationPresent(Auth.class)) {
+		// 没有Auth的Annotation说明该方法必须由超级管理员访问
+		if (!m.isAnnotationPresent(Auth.class)) {
+			if (lu == null) {
+				return 1;
+			}
+			if (lu.getType() != 1) {
+				return 2;
+			}
+		} else {
+			Auth au = m.getAnnotation(Auth.class);
+			String v = au.value();
+			if (v.equals("any")) {
+				return 0;
+			} else if (v.equals("user")) {
 				if (lu == null) {
-					resp.sendRedirect("user.do?method=loginInput");
-				}
-				if (lu.getType() != 1) {
-					req.setAttribute("errorMsg", "你没有权限访问该功能！");
-					req.getRequestDispatcher("/WEB-INF/inc/error.jsp").forward(req, resp);
-				}
-			} else {
-				Auth au = m.getAnnotation(Auth.class);
-				String v = au.value();
-				if (v.equals("any")) {
-					return;
+					return 1;
 				} else {
-					resp.sendRedirect("user.do?method=loginInput");
+					return 0;
 				}
 			}
-		} catch (IOException | ServletException e) {
-			e.printStackTrace();
 		}
+
+		return 0;
 	}
 }

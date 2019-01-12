@@ -22,7 +22,7 @@
 	</tr>
 	<tr>
 	<td colspan="2">
-		<input type="submit" value="用户修改"/><input type="reset"/>
+		<input type="submit" value="用户修改"/>&nbsp;<input type="reset"/>
 	</td>
 	</tr>
 </table>

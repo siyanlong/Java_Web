@@ -32,7 +32,7 @@ create table t_category(
 	id int(11) primary key auto_increment,
 	name varchar(100)
 );
-create table t_goods(
+create table t_product(
 	id int(11) primary key auto_increment,
 	name varchar(100),
 	price double,
@@ -42,7 +42,7 @@ create table t_goods(
 	c_id int(10),
 	CONSTRAINT FOREIGN KEY(c_id) REFERENCES t_category(id)
 );
-create table t_goods_orders(
+create table t_product_orders(
 	id int(11) primary key auto_increment,
 	goods_id int(10),
 	orders_id int(10),

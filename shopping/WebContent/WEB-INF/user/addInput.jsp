@@ -25,7 +25,7 @@
 	<!-- </tr> -->
 	<tr>
 	<td colspan="2">
-		<input type="submit" value="用户注册"/><input type="reset"/>
+		<input type="submit" value="用户注册"/>&nbsp;<input type="reset"/>
 	</td>
 	</tr>
 </table>
