@@ -52,6 +52,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ProductServlet</servlet-name>
-    <url-pattern>/ProductServlet</url-pattern>
+    <url-pattern>/product.do</url-pattern>
   </servlet-mapping>
 </web-app>
