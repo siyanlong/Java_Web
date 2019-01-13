@@ -4,24 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户登录</title>
+<title>商品类别查询</title>
 </head>
 <body>
 <jsp:include page="inc.jsp"/>
-<form action="user.do?method=login" method="post">
 <table width="600" class="thin-border" align="center">
 	<tr>
-		<td>用户名：</td><td><input type="text" name="username"/></td>
+		<td>商品名称：${category.name }</td>
 	</tr>
 	<tr>
-		<td>用户密码：</td><td><input type="password" name="password"/></td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
-			<input type="submit" value="用户登录"/>&nbsp;<input type="reset"/>
+		<td>
+			<a href="category.do?method=updateInput&id=${category.id }">修改</a>
+			&nbsp;
+			<a href="category.do?method=delete&id=${category.id }">删除</a>
 		</td>
 	</tr>
 </table>
-</form>
 </body>
 </html>

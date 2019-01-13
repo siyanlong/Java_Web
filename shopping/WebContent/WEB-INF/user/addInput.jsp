@@ -24,7 +24,7 @@
 	<!-- <td>用户兴趣：</td><td><input type="checkbox" name="interes" value="足球"/>足球<input type="checkbox" value="篮球" name="interes"/></td> -->
 	<!-- </tr> -->
 	<tr>
-	<td colspan="2">
+	<td colspan="2" align="center">
 		<input type="submit" value="用户注册"/>&nbsp;<input type="reset"/>
 	</td>
 	</tr>

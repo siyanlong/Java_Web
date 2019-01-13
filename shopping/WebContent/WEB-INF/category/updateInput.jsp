@@ -4,21 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户登录</title>
+<title>商品类别修改</title>
 </head>
 <body>
 <jsp:include page="inc.jsp"/>
-<form action="user.do?method=login" method="post">
+<form action="category.do?method=update" method="post">
+<input type="hidden" name="id" value="${category.id }">
 <table width="600" class="thin-border" align="center">
 	<tr>
-		<td>用户名：</td><td><input type="text" name="username"/></td>
+		<td>商品名称：</td>
+		<td><input type="text" name="name" value="${category.name }"/><span class="errorContainer">${errors.name}</span></td>
 	</tr>
 	<tr>
-		<td>用户密码：</td><td><input type="password" name="password"/></td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
-			<input type="submit" value="用户登录"/>&nbsp;<input type="reset"/>
+		<td colspan="2">
+			<input type="submit" value="修改"/>&nbsp;<input type="reset"/>
 		</td>
 	</tr>
 </table>

@@ -44,9 +44,9 @@ create table t_product(
 );
 create table t_product_orders(
 	id int(11) primary key auto_increment,
-	goods_id int(10),
+	product_id int(10),
 	orders_id int(10),
-	CONSTRAINT FOREIGN KEY(goods_id) REFERENCES t_goods(id),
+	CONSTRAINT FOREIGN KEY(product_id) REFERENCES t_product(id),
 	CONSTRAINT FOREIGN KEY(orders_id) REFERENCES t_orders(id)
 );
 insert into t_user values(null,'admin','123','超级管理员',1);

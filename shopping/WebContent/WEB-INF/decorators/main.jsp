@@ -29,8 +29,7 @@
 <hr/>
 <h3 align="center"><decorator:title default="商城管理系统"/></h3>
 <decorator:body/>
-<hr/>
-<div align="center">
+<div align="center" style="width:100%;border-top:1px solid;float:left;margin-top:10px;">
 	CopyRight@2012-2019<br/>
 	开发培训教学项目
 </div>
