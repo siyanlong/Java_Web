@@ -4,7 +4,7 @@ public class Product {
 	private int id;
 	@ValidateForm(type = ValidateType.NotNull, errorMsg = "商品名称不能为空！")
 	private String name;
-	@ValidateForm(type = ValidateType.Number, errorMsg = "商品价格的格式不正确，必须是数字！")
+	@ValidateForm(type = ValidateType.Number, errorMsg = "商品价格的格式必须是数字！")
 	private double price;
 	private String intro;
 	private String img;

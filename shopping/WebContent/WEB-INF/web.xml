@@ -52,7 +52,7 @@
     <servlet-name>ProductServlet</servlet-name>
     <url-pattern>/product.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>AddressServlet</servlet-name>
     <servlet-class>siyl.cit.shopping.servlet.AddressServlet</servlet-class>
   </servlet>
@@ -60,7 +60,7 @@
     <servlet-name>AddressServlet</servlet-name>
     <url-pattern>/address.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>CategoryServlet</servlet-name>
     <servlet-class>siyl.cit.shopping.servlet.CategoryServlet</servlet-class>
   </servlet>

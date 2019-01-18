@@ -11,7 +11,7 @@
 <form action="category.do?method=add" method="post">
 <table width="600" class="thin-border" align="center">
 	<tr>
-		<td width="20%">商品名称：</td>
+		<td width="30%">商品类别名称：</td>
 		<td><input type="text" name="name" value="${param.name }"/><span class="errorContainer">${errors.name}</span></td>
 	</tr>
 	<tr>

@@ -26,6 +26,10 @@ public class BaseServlet extends HttpServlet {
 		return redirectPath + path;
 	}
 
+	protected Map<String, String> getErrors() {
+		return errors;
+	}
+
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

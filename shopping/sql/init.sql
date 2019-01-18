@@ -40,6 +40,7 @@ create table t_product(
 	img varchar(100),
 	stock int(10),
 	c_id int(10),
+	status int(2),
 	CONSTRAINT FOREIGN KEY(c_id) REFERENCES t_category(id)
 );
 create table t_product_orders(

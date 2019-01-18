@@ -35,7 +35,7 @@ a.category_link:hover {
 <input type="hidden" name="method" value="list"/>
 输入筛选条件：<input type="text" name="name" value="${param.name }"/>&nbsp;<input type="submit" value="搜索"/><br/>
 </form>
-<c:if test="${empty cs }">还没有任何商品分类</c:if>
+<c:if test="${empty cs }"><br/>还没有任何商品分类！</c:if>
 <c:if test="${not empty cs }">
 <c:forEach items="${cs }" var="category">
 	<a href="category.do?method=show&id=${category.id }" class="category_link"><span class="category">${category.name }</span></a>
