@@ -8,9 +8,13 @@
 </head>
 <body>
 <form method="post" action="file.do" enctype="multipart/form-data">
+<!-- <form method="post" action="file.do"> -->
 	Username：<input type="text" name="username"/><br/>
 	Photo：<input type="file" name="photo"/><br/>
-	<input type="submit" />
+	Interests:<input type="checkbox" name="interest" value="足球"/>足球
+	<input type="checkbox" name="interest" value="蓝球"/>蓝球
+	<input type="checkbox" name="interest" value="羽毛球"/>羽毛球<br/>
+	<input type="submit">
 </form>
 </body>
 </html>

@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>FileServlet</display-name>
+    <servlet-name>FileServlet</servlet-name>
+    <servlet-class>siyl.cit.file.servlet.FileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileServlet</servlet-name>
+    <url-pattern>/file.do</url-pattern>
+  </servlet-mapping>
 </web-app>
