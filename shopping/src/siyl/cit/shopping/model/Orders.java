@@ -14,7 +14,7 @@ public class Orders {
 	private int status;
 	private User user;
 	private Address adress;
-	private List<Goods> goods;
+	private List<Product> products;
 
 	public int getId() {
 		return id;
@@ -72,11 +72,11 @@ public class Orders {
 		this.adress = adress;
 	}
 
-	public List<Goods> getGoods() {
-		return goods;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setGoods(List<Goods> goods) {
-		this.goods = goods;
+	public void setGoods(List<Product> products) {
+		this.products = products;
 	}
 }

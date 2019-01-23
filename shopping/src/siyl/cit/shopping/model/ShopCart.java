@@ -6,13 +6,13 @@ import java.util.List;
  * 购物车
  */
 public class ShopCart {
-	private List<Goods> goods;
+	private List<Product> products;
 
-	public List<Goods> getGoods() {
-		return goods;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setGoods(List<Goods> goods) {
-		this.goods = goods;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

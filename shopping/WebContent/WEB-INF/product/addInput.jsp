@@ -9,7 +9,8 @@
 </head>
 <body>
 <jsp:include page="inc.jsp"></jsp:include>
-<form action="product.do?method=add" method="post">
+<form action="product.do" method="post" enctype="multipart/form-data">
+<input type="hidden" name="method" value="add"/>
 <table width="600" class="thin-border" align="center">
 	<tr>
 		<td>商品名称：</td><td><input type="text" name="name" value="${param.name }"/>&nbsp;<span class="errorContainer">${errors.name}</span></td>
@@ -41,7 +42,7 @@
 		<td>商品图片：</td><td><input type="file" name="img" value="${param.img }"/><span class="errorContainer">${errors.img}</span></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center">商品介绍：</td>
+		<td colspan="2" align="center">商品介绍</td>
 	</tr>
 	<tr>
 		<td colspan="2"><textarea cols="90" rows="10" name="intro">${param.intro }</textarea></td>

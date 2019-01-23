@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import siyl.cit.shopping.model.Auth;
+import siyl.cit.shopping.model.MultipartWrapper;
 import siyl.cit.shopping.model.User;
 import siyl.cit.shopping.util.DaoUtil;
 
@@ -30,11 +33,26 @@ public class BaseServlet extends HttpServlet {
 		return errors;
 	}
 
+	protected boolean hasErrors() {
+		if (errors != null && errors.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	protected String handleException(Exception e, HttpServletRequest req) {
+		req.setAttribute("errorMsg", e.getMessage());
+		return "inc/error.jsp";
+	}
+
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		errors.clear();
 		request.setAttribute("errors", errors);
+		if (ServletFileUpload.isMultipartContent(request)) {
+			request = new MultipartWrapper(request);
+		}
 		DaoUtil.diDao(this);
 		String method = request.getParameter("method");
 		try {

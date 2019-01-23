@@ -38,6 +38,7 @@ public class DaoUtil {
 					if (str == null || "".equals(str)) {
 						str = currMethod.getName().substring(3);
 						str = str.substring(0, 1).toLowerCase() + str.substring(1);
+						System.out.println(str);
 					}
 
 					Object currObject = DaoUtil.createDaoFactory_New().createDao(str);

@@ -1,5 +1,6 @@
 package siyl.cit.shopping.util;
 
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -8,12 +9,15 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import siyl.cit.shopping.model.ValidateForm;
 import siyl.cit.shopping.model.ValidateType;
 
 public class RequestUtil {
-	public final static String PATH = "E:\\Project\\Java_Web\\trunk\\shopping\\WebContent";
+	public final static String PATH = "E:\\MyProject\\Java_Web\\trunk\\shopping\\WebContent";
+
+	public final static String[] ALLOW_FILE = { "jpg", "bmp", "gif", "png" };
 
 	public static boolean validate(Class clz, HttpServletRequest req) {
 		Field[] fs = clz.getDeclaredFields();
@@ -99,5 +103,39 @@ public class RequestUtil {
 		}
 
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void uploadFile(String fname, String fieldName, byte[] fs, HttpServletRequest req) throws Exception {
+		FileOutputStream fos = null;
+		try {
+			if (fs.length > 0) {
+				// 对于IE而言，上传的文件会获取完整的绝对路径，此时就需要仅仅获取绝对路径中的文件名
+				String fn = FilenameUtils.getName(fname);
+				String ext = FilenameUtils.getExtension(fname);
+				boolean flag = checkFile(ext);
+				if (flag) {
+					fos = new FileOutputStream(PATH + "/img/" + fn);
+					fos.write(fs, 0, fs.length);
+				} else {
+					Map<String, String> errors = (Map<String, String>) req.getAttribute("errors");
+					errors.put(fieldName, "图片类型必须是jpg、bmp、png、gif！");
+				}
+			}
+		} finally {
+			if (fos != null) {
+				fos.close();
+			}
+		}
+	}
+
+	private static boolean checkFile(String ext) {
+		for (String str : ALLOW_FILE) {
+			if (str.equals(ext.toLowerCase())) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

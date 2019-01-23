@@ -22,7 +22,7 @@
 		<tr>
 			<td><img src="<%=request.getContextPath()%>/img/${p.img}" width="130" height="130"/></td>
 			<td><a href="product.do?method=show&id=${p.id }">${p.name }</a></td><td>${p.price }</td>
-			<td>${p.stock }<c:if test="${not empty loginUser and loginUser.type eq 1 }"><a href="product.do?method=addStockInput&id=${p.id }">添加</a></c:if></td>
+			<td>${p.stock }<c:if test="${not empty loginUser and loginUser.type eq 1 }">&nbsp;<a href="product.do?method=addStockInput&id=${p.id }">添加</a></c:if></td>
 			<td>
 				<c:if test="${p.status eq 1 }">可购买</c:if>
 				<c:if test="${p.status eq -1 }"><span style="color:#832">已下架</span></c:if>

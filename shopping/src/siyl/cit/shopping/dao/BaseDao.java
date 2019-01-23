@@ -8,9 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 
 import siyl.cit.shopping.model.Pager;
 import siyl.cit.shopping.model.SystemContext;
+import siyl.cit.shopping.util.DaoUtil;
 import siyl.cit.shopping.util.MyBatisUtil;
 
 public class BaseDao<T> {
+	public BaseDao() {
+		DaoUtil.diDao(this);
+	}
+
 	public void add(T obj) {
 		SqlSession session = null;
 		try {
