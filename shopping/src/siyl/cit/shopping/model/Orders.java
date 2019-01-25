@@ -5,16 +5,28 @@ import java.util.List;
 
 public class Orders {
 	private int id;
-	// 购买时间
 	private Date buyDate;
-	// 付款时间
 	private Date payDate;
-	// 发货/确认时间
 	private Date confirmDate;
+	/**
+	 * 四种状态:1表示已下订单、2表示已付款、3、表示已发货、4、表示确认收货
+	 */
 	private int status;
 	private User user;
-	private Address adress;
-	private List<Product> products;
+	private Address address;
+	private List<CartProduct> products;
+	/**
+	 * 所花费的价格，这个价格是可以修改的
+	 */
+	private double price;
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public int getId() {
 		return id;
@@ -48,10 +60,19 @@ public class Orders {
 		this.confirmDate = confirmDate;
 	}
 
+	/**
+	 * 
+	 * @return 四种状态:1表示已下订单、2表示已付款、3、表示已发货、4、表示确认收货
+	 */
 	public int getStatus() {
 		return status;
 	}
 
+	/**
+	 * 
+	 * @param status
+	 *            四种状态:1表示已下订单、2表示已付款、3、表示已发货、4、表示确认收货
+	 */
 	public void setStatus(int status) {
 		this.status = status;
 	}
@@ -64,19 +85,19 @@ public class Orders {
 		this.user = user;
 	}
 
-	public Address getAdress() {
-		return adress;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAdress(Address adress) {
-		this.adress = adress;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public List<Product> getProducts() {
+	public List<CartProduct> getProducts() {
 		return products;
 	}
 
-	public void setGoods(List<Product> products) {
+	public void setProducts(List<CartProduct> products) {
 		this.products = products;
 	}
 }

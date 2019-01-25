@@ -25,6 +25,7 @@ create table t_orders(
 	status int(5),
 	user_id int(11),
 	address_id int(11),
+	price double,
 	CONSTRAINT FOREIGN KEY(user_id) REFERENCES t_user(id),
 	CONSTRAINT FOREIGN KEY(address_id) REFERENCES t_address(id)
 );
@@ -43,11 +44,13 @@ create table t_product(
 	status int(2),
 	CONSTRAINT FOREIGN KEY(c_id) REFERENCES t_category(id)
 );
-create table t_product_orders(
+create table t_cart_product(
 	id int(11) primary key auto_increment,
-	product_id int(10),
-	orders_id int(10),
-	CONSTRAINT FOREIGN KEY(product_id) REFERENCES t_product(id),
-	CONSTRAINT FOREIGN KEY(orders_id) REFERENCES t_orders(id)
+	number int(11),
+	price double,
+	o_id int(11),
+	p_id int(11),
+	CONSTRAINT FOREIGN KEY(o_id) REFERENCES t_orders(id),
+	CONSTRAINT FOREIGN KEY(p_id) REFERENCES t_product(id)
 );
 insert into t_user values(null,'admin','123','超级管理员',1);

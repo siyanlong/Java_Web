@@ -68,4 +68,12 @@
     <servlet-name>CategoryServlet</servlet-name>
     <url-pattern>/category.do</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>OrdersServlet</servlet-name>
+    <servlet-class>siyl.cit.shopping.servlet.OrdersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdersServlet</servlet-name>
+    <url-pattern>/orders.do</url-pattern>
+  </servlet-mapping>
 </web-app>

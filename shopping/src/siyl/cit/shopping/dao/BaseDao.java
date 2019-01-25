@@ -30,6 +30,20 @@ public class BaseDao<T> {
 		}
 	}
 
+	public void add(String sqlId, Object obj) {
+		SqlSession session = null;
+		try {
+			session = MyBatisUtil.createSession();
+			session.insert(sqlId, obj);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		} finally {
+			MyBatisUtil.closeSession(session);
+		}
+	}
+
 	public void update(T obj) {
 		SqlSession session = null;
 		try {
@@ -49,6 +63,20 @@ public class BaseDao<T> {
 		try {
 			session = MyBatisUtil.createSession();
 			session.delete(clz.getName() + ".delete", id);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		} finally {
+			MyBatisUtil.closeSession(session);
+		}
+	}
+
+	public void delete(String sqlId, Map<String, Object> params) {
+		SqlSession session = null;
+		try {
+			session = MyBatisUtil.createSession();
+			session.delete(sqlId, params);
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
