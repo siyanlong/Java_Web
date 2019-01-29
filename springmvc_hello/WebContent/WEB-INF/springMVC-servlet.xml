@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+		
+	<!-- 可以使用这种方式进行配置，但是不常用，这种方式对应welcome.jsp和WelcomeController.java -->
+	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+	<bean name="/welcome.html" class="siyl.cit.controller.WelcomeController"></bean>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp"/>
+	</bean>	 
+	<bean name="/welcome.html" class="siyl.cit.controller.WelcomeController"></bean>
+	-->
+	<!-- 注解的方式进行配置，这种方式常用，这种方式对应hello.jsp和HelloController.java -->
+	<context:component-scan base-package="siyl.cit.controller"></context:component-scan>
+	<mvc:annotation-driven/>
+	<!-- 将静态文件指定到某个特殊的文件夹中统一处理，避免被截获 -->
+	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<!-- 设置全局处理异常的方式，key是需要截获的异常，值为截获到异常跳转到的页面 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="siyl.cit.model.UserException">error</prop>
+				<prop key="java.lang.NullPointerException">error</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 设置multipartResolver才能完成文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="500000"></property>
+	</bean>
+</beans>
