@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+   	创建如下bean等于完成了:HelloWorld helloWorld = new HelloWorld()
+    -->
+	<bean id="helloWorld" class="siyl.cit.spring.model.HelloWorld" scope="prototype"></bean>
+	
+	<bean id="userDao" class="siyl.cit.spring.dao.UserDao"></bean>
+	
+	<!-- 创建了一个User对象user,id为1，username为悟空，如果要注入值不使用ref而是使用value -->
+	<bean id="user" class="siyl.cit.spring.model.User">
+		<property name="id" value="2"/>
+		<property name="username" value="八戒"/>
+	</bean>
+	
+	<!-- autowire=byName表示会根据name来完成注入，
+	byType表示根据类型注入 ，使用byType注入如果一个类中有两个同类型的对象就会抛出异常
+	所以在开发中一般都是使用byName，例子是UserService中的userDao和userJDBCDao
+	虽然自动注入可以减少配置，但是通过bean文件无法很好了解整个类的结果，所以不建议使用autowire-->
+	<bean id="userService" class="siyl.cit.spring.service.UserService">
+		<!-- name中的值会在userService对象中调用setXX方法来注入，诸如:name="userDao"
+		在具体注入时会调用setUserDao(IUserDao userDao)来完成注入
+		ref="userDao"表示是配置文件中的bean中所创建的DAO的id -->
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	
+	<!-- 对于UserAction而言，里面的属性的值的状态会根据不同的线程得到不同的值，所以应该使用多例 -->
+	<bean id="userAction" class="siyl.cit.spring.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"/>
+		<property name="user" ref="user"/>
+		<property name="id" value="12"/>
+		<!-- 同样可以注入列表，但是也不常用 -->
+		<property name="names">
+			<list>
+				<value>aaa</value>
+				<value>bbb</value>
+				<value>ccc</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 以下是使用构造函数来注入，不常用，基本都是使用set方法注入 -->
+	<!-- <bean id="userAction" class="siyl.cit.spring.action.UserAction" scope="prototype">
+		<constructor-arg ref="userService"/>
+	</bean> -->
+</beans>
