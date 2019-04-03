@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+/*
+ * 用以下方式查找，遍历起来效率不高，可以考虑直接使用xpath来完成查询
+ /address/province-->找的就是所有的province对象
+ /address/province[@value='xxx']/city-->找所以的province中的属性里value=xx的city节点
+ //city[@value='xx']/country--->/address/province/city[@value='xx']/country
+ */
+(function(){
+	var areaDoc = null;
+	
+	window.onload = init;
+	function init() {
+		initProvince();
+		var pn = document.getElementById("province");
+		pn.onchange = getCity;
+		var cn = document.getElementById("city");
+		cn.onchange = getCountry;
+	}
+	
+	function getCountry() {
+		var cv= this.value;
+		var cn = getParentNode("city", cv);
+		if (cn) {
+			var cns = cn.getElementsByTagName("country");
+			insertOption("country", cns);
+		} else {
+			clearOption("country");
+		}
+	}
+	function getCity() {
+		var cv= this.value;
+		var cn = getParentNode("province", cv);
+		if (cn) {
+			var cns = cn.getElementsByTagName("city");
+			insertOption("city", cns);
+		} else {
+			clearOption("city");
+		}
+	}
+	
+	function getParentNode(name, cv) {
+		var pns = areaDoc.getElementsByTagName(name);
+		for(var i = 0; i < pns.length; i++) {
+			if (pns[i].getAttribute("value") == cv) {
+				return pns[i];
+			}
+		}
+		return null;
+	}
+	
+	function insertOption(nodeId, ns) {
+		var pn = document.getElementById(nodeId);
+		pn.options.length = 1;
+		for(var i = 0; i < ns.length; i++) {
+			var node = document.createElement("option");
+			node.text = ns[i].getAttribute("name");
+			node.value = ns[i].getAttribute("value");
+			pn.add(node);
+		}
+	}
+	
+	function clearOption(nodeId) {
+		var pn = document.getElementById(nodeId);
+		pn.options.length = 1;
+	}
+	
+	function initProvince() {
+		//通过ajax读取Area.xml，并且获取所有的省份内容
+		var xhr = createXMLHttpRequest();
+		xhr.open("GET","Area.xml",true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				areaDoc = xhr.responseXML;
+				var pns = areaDoc.getElementsByTagName("province");
+				/*
+				//通过一个字符串节点来插入到select中，IE浏览器有bug，所以必须通过创建option的方式来插入
+				var ns = "";
+				for(var i=0;i<pns.length;i++) {
+					ns+="<option value='"+pns[i].getAttribute("value")+"'>"+pns[i].getAttribute("name")+"</option>";
+				}
+				var pn = document.getElementById("province");
+				pn.innerHTML+=ns;*/
+				insertOption("province", pns);				
+			}
+		}
+		xhr.send();
+	}
+	
+	//根据节点获取值
+	function getValueByProp(node,prop) {
+		return (node.getElementsByTagName(prop))[0].firstChild.nodeValue;
+	}
+	
+	function createXMLHttpRequest() {
+		if(window.XMLHttpRequest) {
+			//针对其他主流浏览器
+			return new XMLHttpRequest();
+		} else if(window.ActiveXObject) {
+			//针对IE5和IE6
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		} else {
+			alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+			return null;
+		}
+	}
+})();
+</script>
+</head>
+<body>
+<select id="province">
+	<option>请选择省份</option>
+</select>
+<select id="city">
+	<option>请选择城市</option>
+</select>
+<select id="country">
+	<option>请选择县份</option>
+</select>
+</body>
+</html>

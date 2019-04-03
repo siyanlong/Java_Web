@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = init;
+function init() {
+	//1、获取部门节点
+	var dn = document.getElementById("dep");
+	//2、为该节点创建onchange
+	dn.onchange = getPerson;
+	//3、创建一个getPerson的方法来处理事件 
+}
+
+function getPerson() {
+	var did = this.value;
+	//1、获取XMLHttpRequest;
+	var xhr = createXMLHttpRequest();
+	//2、通过xhr来打开页面，使用POST
+	xhr.open("POST", "person.do", true);
+	xhr.onreadystatechange = function() {
+		//3、处理请求
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			//3.1、获取xml节点
+			var xmlDoc = xhr.responseXML;
+			//由于response的contentType是text/xml类型，此时就只能获取节点
+			//alert(xhr.resonseText);
+			//3.2、获取所有的person节点
+			var pns = xmlDoc.getElementsByTagName("person");
+			//3.3、遍历所以节点，获取id，name等信息
+			var node = "";
+			for(var i = 0; i < pns.length; i++) {
+				node += getValueByProp(pns[i], "id") + "----------" +
+				      	getValueByProp(pns[i], "name") + "----------" +
+				      	getValueByProp(pns[i], "salary") + "----------" +
+				      	getValueByProp(pns[i], "age") + "<br/>"
+			}
+			//3.4、写入到persons
+			document.getElementById("persons").innerHTML = node;
+		}
+	}
+	
+	//4、发送信息,需要传入did
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xhr.send("did="+did);
+}
+//根据节点获取值
+function getValueByProp(node, prop) {
+	return (node.getElementsByTagName(prop))[0].firstChild.nodeValue;
+}
+
+function createXMLHttpRequest() {
+	if(window.XMLHttpRequest) {
+		//针对其他主流浏览器
+		return new XMLHttpRequest();
+	} else if(window.ActiveXObject) {
+		//针对IE5和IE6
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+		alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+		return null;
+	}
+}
+</script>
+</head>
+<body>
+<select id="dep">
+	<option value="1">普通组</option>
+	<option value="2">明星组</option>
+	<option value="3">火星组</option>
+</select>
+<div id="persons"></div>
+</body>
+</html>

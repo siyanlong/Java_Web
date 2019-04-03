@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload=init;
+function init() {
+	var bt = document.getElementById("getData");
+	bt.onclick = getData;
+}
+function getData() {
+	//1、创建XMLHttpRequest对象
+	//通过createXmlHttpRequest来屏蔽不同浏览器之间的对象创建
+	var xhr = createXmlHttpRequest();
+	
+	//2、检测XMLHttpRequest对象的状态，在合适的时候处理
+	//通过xhr.open方法确定要访问的页面
+	//第一个参数表示请求类型，第二个参数表示提交的地址，第三个参数表示是否是异步
+	xhr.open("GET","ajax.do",true);
+	
+	//在onreadstatechange事件中处理请求
+	xhr.onreadystatechange = function() {
+		//onreadystatechange会在每个步骤都进行响应 ，一般仅仅只是在状态为4(请求结束)并且status=200(请求没有错误)时才处理
+	  	if (xhr.readyState == 4 && xhr.status == 200)
+	    {
+	  		//获取相应的文本:通过xhr的responseText可以获取文本信息，包括xml的标签
+			//通过responseXML可以获取xml的信息，只能xml对象
+	    	document.getElementById("serverData").innerHTML = xhr.responseText;
+	    }
+	}
+	
+	//3、发送请求
+	//发送请求，send中可以传入相应的参数，这个参数只有在POST请求的时候有效
+	//GET的参数直接在请求地址中通过？来传递
+	xhr.send();
+
+}
+function createXmlHttpRequest() {
+	if (window.XMLHttpRequest) {
+		//针对其他主流浏览器
+		return new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		//针对IE5和IE6
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+		alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+		return null;
+	}
+}
+</script>
+</head>
+<body>
+<input type="button" value="获取数据" id="getData"/>
+<div id="serverData"></div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.onload = init;
+function init() {
+	//1、获取部门节点
+	var dn = document.getElementById("dep");
+	//2、为该节点创建onchange
+	dn.onchange = getPerson
+	//3、创建一个getPerson的方法来处理事件 
+}
+
+function getPerson() {
+	var did = this.value;
+	//1、获取XMLHttpRequest;
+	var xhr = createXMLHttpRequest();
+	//2、通过xhr来打开页面，使用POST
+	xhr.open("POST", "personJson.do", true);
+	xhr.onreadystatechange = function() {
+		//3、处理请求
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			//3.1、获取json
+			var json = xhr.responseText;
+			//如果传递的是json可以直接通过xhr.responseText获取。
+			//3.2、此时json是一个字符串，如果要转换为对象需要使用eval
+			var ps = eval(json);
+			var node = "";
+			for (var i = 0; i < ps.length; i++) {
+				//json就是已经是个javascirpt的对象了，可以直接使用
+				node += ps[i].id + "--------" +
+					    ps[i].name + "--------" +
+					    ps[i].salary + "--------" +
+					    ps[i].age + "<br/>";
+			}
+			//3.4、写入到persons
+			document.getElementById("persons").innerHTML = node;
+		}
+	}
+	
+	//4、发送信息,需要传入did
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xhr.send("did="+did);
+}
+
+function createXMLHttpRequest() {
+	if(window.XMLHttpRequest) {
+		//针对其他主流浏览器
+		return new XMLHttpRequest();
+	} else if(window.ActiveXObject) {
+		//针对IE5和IE6
+		return new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+		alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+		return null;
+	}
+}
+</script>
+</head>
+<body>
+<select id="dep">
+	<option value="1">普通组</option>
+	<option value="2">明星组</option>
+	<option value="3">火星组</option>
+</select>
+<div id="persons"></div>
+</body>
+</html>

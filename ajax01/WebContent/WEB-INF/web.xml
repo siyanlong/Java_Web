@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <servlet>
+    <servlet-name>AjaxServlet</servlet-name>
+    <servlet-class>siyl.cit.ajax.HelloAjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxServlet</servlet-name>
+    <url-pattern>/ajax.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PersonServlet</servlet-name>
+    <servlet-class>siyl.cit.ajax.PersonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonServlet</servlet-name>
+    <url-pattern>/person.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PersonJsonServlet</servlet-name>
+    <servlet-class>siyl.cit.ajax.PersonJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersonJsonServlet</servlet-name>
+    <url-pattern>/personJson.do</url-pattern>
+  </servlet-mapping>
+</web-app>

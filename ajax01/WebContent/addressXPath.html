@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+/*
+ * 用以下方式查找，遍历起来效率不高，可以考虑直接使用xpath来完成查询
+ /address/province-->找的就是所有的province对象
+ /address/province[@value='xxx']/city-->找所以的province中的属性里value=xx的city节点
+ //city[@value='xx']/country--->/address/province/city[@value='xx']/country
+ */
+(function(){
+	var areaDoc = null;
+	
+	window.onload = init;
+	function init() {
+		initDoc();
+		var pn = document.getElementById("province");
+		pn.onchange = function() {
+			setAddress("/address/province[@value='" + this.value + "']/city","city");
+		}
+		var cn = document.getElementById("city");
+		cn.onchange = function() {
+			setAddress("//city[@value='" + this.value + "']/country","country");
+		}
+	}
+	
+	function setAddress(xpath, nodeId) {
+		var nodes = getNodeByXpath(areaDoc, xpath);
+		insertOption(nodeId, nodes);
+	}
+	
+	function initProvince() {
+		var path = "/address/province";
+		//一下方法是ie支持
+		//var ns = areaDoc.selectNodes(path);
+		//alert(ns.length);
+		//FF支持
+		/*var ns = areaDoc.evaluate(path,areaDoc,null,XPathResult.ORDERED_NODE_ITERATOR_TYPE,null);
+		var node = null;
+		while((node=ns.iterateNext())) {
+			alert(node.getAttribute("name"));
+		}*/
+		setAddress(path,"province");
+	}
+	
+	function getNodeByXpath(root,path) {
+		if (window.ActiveXObject) {
+			return root.selectNodes(path);
+		} else if (XPathResult) {
+			var ns = new Array();
+			var xr = areaDoc.evaluate(path, areaDoc, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+			var node = null;
+			while ((node = xr.iterateNext())) {
+				ns.push(node);
+			}
+			return ns;
+		} else {
+			alert("请选择主流浏览器！");
+			return null;
+		}
+		
+	}
+	
+	function insertOption(nodeId, ns) {
+		var pn = document.getElementById(nodeId);
+		pn.options.length = 1;
+		for (var i = 0; i < ns.length; i++) {
+			var node = document.createElement("option");
+			node.text = ns[i].getAttribute("name");
+			node.value = ns[i].getAttribute("value");
+			pn.add(node);
+		}
+	}
+	
+	function initDoc() {
+		//通过ajax读取Area.xml，并且获取所有的省份内容
+		var xhr = createXMLHttpRequest();
+		xhr.open("GET", "Area.xml", true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				areaDoc = xhr.responseXML;
+				initProvince();
+			}
+		}
+		xhr.send();
+	}
+	
+	//根据节点获取值
+	function getValueByProp(node,prop) {
+		return (node.getElementsByTagName(prop))[0].firstChild.nodeValue;
+	}
+	
+	function createXMLHttpRequest() {
+		if (window.XMLHttpRequest) {
+			//针对其他主流浏览器
+			return new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			//针对IE5和IE6
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		} else {
+			alert("你使用的浏览器不支持XMLHttpRequest，请换一个浏览器再试！");
+			return null;
+		}
+	}
+})();
+</script>
+</head>
+<body>
+<select id="province">
+	<option>请选择省份</option>
+</select>
+<select id="city">
+	<option>请选择城市</option>
+</select>
+<select id="country">
+	<option>请选择县份</option>
+</select>
+</body>
+</html>

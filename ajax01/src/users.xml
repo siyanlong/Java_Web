@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+    <id>1</id>
+    <username>劳动法</username>
+    <password>123</password>
+    <group>
+      <id>1</id>
+      <name>财务处</name>
+    </group>
+  </user>
+  <user>
+    <id>2</id>
+    <username>张学友</username>
+    <password>123</password>
+    <group>
+      <id>1</id>
+      <name>财务处</name>
+    </group>
+  </user>
+  <user>
+    <id>3</id>
+    <username>黎明</username>
+    <password>123</password>
+    <group>
+      <id>1</id>
+      <name>财务处</name>
+    </group>
+  </user>
+  <user>
+    <id>4</id>
+    <username>郭富城</username>
+    <password>123</password>
+    <group>
+      <id>1</id>
+      <name>物理系</name>
+    </group>
+  </user>
+</users>
