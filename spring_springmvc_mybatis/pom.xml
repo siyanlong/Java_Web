@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.siyl.cit</groupId>
+  <artifactId>spring_springmvc_mybatis</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>spring_springmvc_mybatis Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>  
+        <!-- 文件拷贝时的编码 -->  
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring.version>5.1.6.RELEASE</spring.version>
+        <jackson.version>2.9.8</jackson.version>
+  </properties>  
+  
+  <dependencies>
+  	<!-- JUnit单元测试工具 -->
+    <dependency>
+    	<groupId>junit</groupId>
+    	<artifactId>junit</artifactId>
+    	<version>4.12</version>
+    	<scope>test</scope>
+    </dependency>
+    <!-- Spring框架核心库 -->
+    <dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-context</artifactId>
+  		<version>${spring.version}</version>
+	</dependency>
+	 <!-- Spring Web -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<!-- Spring MVC -->
+	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>${spring.version}</version>
+	</dependency>
+	<!-- Spring-TX：为JDBC、Hibernate、JDO、JPA等提供的一致的声明式和编程式事务管理 -->
+	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-tx</artifactId>
+  		<version>${spring.version}</version>
+	</dependency>
+	<!-- AspectJ AOP 织入器 -->
+	<dependency>
+  		<groupId>org.aspectj</groupId>
+  		<artifactId>aspectjweaver</artifactId>
+  		<version>1.9.3</version>
+	</dependency>
+	<!-- Mybatis ORM框架 -->
+	<dependency>
+	  	<groupId>org.mybatis</groupId>
+	  	<artifactId>mybatis</artifactId>
+	  	<version>3.5.1</version>
+	</dependency>
+	<!-- Mybatis-Spring适配器 -->
+	<dependency>
+	  	<groupId>org.mybatis</groupId>
+	  	<artifactId>mybatis-spring</artifactId>
+	  	<version>2.0.1</version>
+	</dependency>
+	<!--Spring Java数据库访问包 -->
+	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-jdbc</artifactId>
+  		<version>${spring.version}</version>
+	</dependency>
+	<!-- MySQL数据库驱动 -->
+	<dependency>
+  	  	<groupId>mysql</groupId>
+	  	<artifactId>mysql-connector-java</artifactId>
+	  	<version>8.0.15</version>
+	</dependency>
+	<!-- Druid连接池 -->
+	<dependency>
+  		<groupId>com.alibaba</groupId>
+  		<artifactId>druid</artifactId>
+  		<version>1.1.16</version>
+	</dependency>
+	<!-- Spring-Test：用于辅助测试 -->
+	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-test</artifactId>
+  		<version>${spring.version}</version>
+	</dependency>
+	<!-- Fileupload：用于文件上传 -->
+	<dependency>
+  		<groupId>commons-fileupload</groupId>
+  		<artifactId>commons-fileupload</artifactId>
+  		<version>1.4</version>
+	</dependency>
+	<!-- Servlet-API：需要用到HttpServletRequest，因此引入相关jar包 -->
+	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>3.0-alpha-1</version>
+	</dependency>
+	<!-- Jackson：用于解析JSON数据，包括jackson-core、jackson-databind、jackson-annotations -->
+	<dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <!-- log4j：用于输出Log -->
+    <dependency>
+  		<groupId>log4j</groupId>
+  		<artifactId>log4j</artifactId>
+  		<version>1.2.17</version>
+	</dependency>
+	<!-- slf4j-api：与log4j配合输出log -->
+	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-api</artifactId>
+  		<version>1.8.0-beta4</version>
+	</dependency>
+	<!-- slf4j-log4j12：与log4j配合输出log -->
+	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-log4j12</artifactId>
+  		<version>1.8.0-beta4</version>
+	</dependency>
+	<!-- fastjson：用于处理JSON数据 -->
+	<dependency>
+  		<groupId>com.alibaba</groupId>
+  		<artifactId>fastjson</artifactId>
+  		<version>1.2.57</version>
+	</dependency>
+  </dependencies>
+  <build>
+  </build>
+</project>
