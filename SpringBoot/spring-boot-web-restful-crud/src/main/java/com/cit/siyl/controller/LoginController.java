@@ -10,12 +10,11 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
-//    @DeleteMapping
-//    @PutMapping
-//    @GetMapping
-
+	//@DeleteMapping
+	//@PutMapping
+	//@GetMapping
     //@RequestMapping(value = "/user/login",method = RequestMethod.POST)
-    @PostMapping(value = "/user/login")
+    @PostMapping(value = "/user/login")//@PostMapping可以替代@RequestMapping(method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
@@ -25,7 +24,6 @@ public class LoginController {
             return "redirect:/main.html";
         }else{
             //登陆失败
-
             map.put("msg","用户名密码错误");
             return  "login";
         }
