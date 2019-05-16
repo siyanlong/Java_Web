@@ -54,32 +54,31 @@ public class EmployeeController {
 		return "redirect:/emps";
 	}
 
-	// //来到修改页面，查出当前员工，在页面回显
-	// @GetMapping("/emp/{id}")
-	// public String toEditPage(@PathVariable("id") Integer id,Model model){
-	// Employee employee = employeeDao.get(id);
-	// model.addAttribute("emp",employee);
-	//
-	// //页面要显示所有的部门列表
-	// Collection<Department> departments = departmentDao.getDepartments();
-	// model.addAttribute("depts",departments);
-	// //回到修改页面(add是一个修改添加二合一的页面);
-	// return "emp/add";
-	// }
-	//
-	// //员工修改；需要提交员工id；
-	// @PutMapping("/emp")
-	// public String updateEmployee(Employee employee){
-	// System.out.println("修改的员工数据："+employee);
-	// employeeDao.save(employee);
-	// return "redirect:/emps";
-	// }
-	//
-	// //员工删除
-	// @DeleteMapping("/emp/{id}")
-	// public String deleteEmployee(@PathVariable("id") Integer id){
-	// employeeDao.delete(id);
-	// return "redirect:/emps";
-	// }
+	// 来到修改页面，查出当前员工，在页面回显
+	@GetMapping("/emp/{id}")
+	public String toEditPage(@PathVariable("id") Integer id, Model model) {
+		Employee employee = employeeDao.get(id);
+		model.addAttribute("emp", employee);
 
+		// 页面要显示所有的部门列表
+		Collection<Department> departments = departmentDao.getDepartments();
+		model.addAttribute("depts", departments);
+		// 回到修改页面(add是一个修改添加二合一的页面);
+		return "emp/add";
+	}
+
+	// 员工修改；需要提交员工id；
+	@PutMapping("/emp")
+	public String updateEmployee(Employee employee) {
+		System.out.println("修改的员工数据：" + employee);
+		employeeDao.save(employee);
+		return "redirect:/emps";
+	}
+
+	// 员工删除
+	@DeleteMapping("/emp/{id}")
+	public String deleteEmployee(@PathVariable("id") Integer id) {
+		employeeDao.delete(id);
+		return "redirect:/emps";
+	}
 }
