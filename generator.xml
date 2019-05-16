@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动包位置 -->
+	<classPathEntry location="E:\MyProject\Java_Web\trunk\mysql-connector-java-5.1.17-bin.jar" />
+	<!-- context：逆向工程的主要配置信息 -->
+    <!-- id：起个名字 -->
+    <!-- targetRuntime：设置生成的文件适用于哪个 Mybatis 版本 -->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- 旨在创建class时，对注释进行控制-->
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是，false：否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/siyl_shopping" userId="siyl" password="123456">
+		</jdbcConnection>
+		<!--非必须，类型处理器，在数据库类型和Java类型之间的转换控制-->
+		<javaTypeResolver>
+			<!-- 默认情况下数据库中的decimal，bigInt在Java 对应是SQL下的BigDecimal类 -->
+            <!-- 不是double和long类型 -->
+            <!-- 使用常用的基本类型代替SQL包下的引用类型 -->
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- 生成模型（实体类）的包名和位置，路径尽量不要使用中文，会有问题，另外，目录要事先创建好 -->
+		<javaModelGenerator targetPackage="siyl.cit.model" targetProject="E:\MyProject\Java_Web\trunk\src">
+			<!-- 是否允许子包 -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 是否对Model添加构造函数 -->
+            <property name="constructorBased" value="true" />
+			<!-- 是否清理从数据库中查询出的字符串左右两边的空白字符 -->
+			<property name="trimStrings" value="true" />
+			<!-- 建立Model对象是否不可改变，即生成的Model对象不会有setter方法，只有构造方法 -->
+            <property name="immutable" value="false" />
+		</javaModelGenerator>
+		<!-- 生成的映射文件的包名和位置，路径尽量不要使用中文，会有问题，另外，目录要事先创建好 -->
+		<sqlMapGenerator targetPackage="siyl.cit.mapping" targetProject="E:\MyProject\Java_Web\trunk\src">
+			<!-- 针对Oracle数据库的一个配置：在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置，路径尽量不要使用中文，会有问题，另外，目录要事先创建好 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="siyl.cit.dao" targetProject="E:\MyProject\Java_Web\trunk\src">
+			<!-- 针对Oracle数据库的一个配置：在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 要生成哪些表(更改tableName和domainObjectName就可以，后面的其它属性如果不设置，则会生成一些示例代码，代码量比较多，没啥大用) -->
+		<table tableName="t_address" domainObjectName="Address" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_cart_product" domainObjectName="CartProduct" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_category" domainObjectName="Category" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_orders" domainObjectName="Orders" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_product" domainObjectName="Product" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+	</context>
+</generatorConfiguration>
