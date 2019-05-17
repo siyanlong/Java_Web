@@ -14,7 +14,6 @@ import com.cit.siyl.component.MyLocalResolver;
 //@EnableWebMvc 添加@EnableWebMvc注解会接管SpringMVC，目前我们不要接管SpringMVC
 @Configuration
 public class MyMvcConfig implements WebMvcConfigurer {
-
 	//添加视图映射
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {

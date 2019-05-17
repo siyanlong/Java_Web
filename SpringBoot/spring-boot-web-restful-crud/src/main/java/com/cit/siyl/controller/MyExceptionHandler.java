@@ -15,7 +15,7 @@ public class MyExceptionHandler {
 
 	// 使用这种方法浏览器客户端返回的都是json
 	// @ResponseBody
-	// @ExceptionHandler(UserNotExistException.class)
+	// @ExceptionHandler(UserNotExistException.class) // 要处理什么异常使用这个注解标注
 	// public Map<String,Object> handleException(Exception e){
 	// Map<String,Object> map = new HashMap<>();
 	// map.put("code","user.notexist");
@@ -27,7 +27,7 @@ public class MyExceptionHandler {
 	@ExceptionHandler(UserNotExistException.class) // 要处理什么异常使用这个注解标注
 	public String handleException(Exception e, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<>();
-		// 传入我们自己的错误状态码 4xx 5xx
+		// 传入我们自己的错误状态码 4xx 5xx，否则就不会进入定制错误页面的解析流程
 		/**
 		 * Integer statusCode = (Integer) request
 		 * .getAttribute("javax.servlet.error.status_code");
